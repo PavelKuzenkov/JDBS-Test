@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html   xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-3">
+    <h2 th:text="'Users'" class="h2">User list</h2>
+    <div class="row">
+        <div class="col">
+            <table class="table table-sm table-bordered table-secondary">
+                <thead>
+                <tr>
+                    <th scope="col" class="border border-secondary">Last name</th>
+                    <th scope="col" class="border border-secondary">First name</th>
+                    <th scope="col" class="border border-secondary">Middle name</th>
+                    <th scope="col" class="border border-secondary">Gender</th>
+                    <th scope="col" class="border border-secondary">Birthday</th>
+                </tr>
+                </thead>
+                <tr th:each="user : ${users}" th:object="${user}">
+                    <td class="border border-secondary" th:text="*{lastName}"></td>
+                    <td class="border border-secondary" th:text="*{firstName}"></td>
+                    <td class="border border-secondary" th:text="*{middleName}"></td>
+                    <td class="border border-secondary" th:text="*{gender}"></td>
+                    <td class="border border-secondary" th:text="*{birthday}"></td>
+                </tr>
+            </table>
+        </div>
+        <form class="form-group px-3" th:action="@{user/add}" th:object="${new_user}" th:method="POST">
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'Last name'">Last name</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{lastName}" placeholder="Last name"/>
+            </div>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'First name'">First name</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{firstName}" placeholder="First name"/>
+            </div>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'Middle name'">Middle name</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{middleName}" placeholder="Middle name"/>
+            </div>
+            <p><b>Gender:</b><Br>
+                <input type="radio" th:field="*{gender}" name="Gender" value="MALE"> Male<Br>
+                <input type="radio" th:field="*{gender}" name="Gender" value="FEMALE"> Female<Br>
+            </p>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'Birthday'">Birthday</span>
+                </div>
+                <input type='date' th:field="*{birthday}" />
+            </div>
+            <button class="btn btn-primary form-control mt-2" th:text="'Submit'">submit</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
