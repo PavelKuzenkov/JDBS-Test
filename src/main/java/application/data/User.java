@@ -8,20 +8,31 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.springframework.format.annotation.DateTimeFormat;
 import application.Gender;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 public class User {
 
+    @NotBlank(message = "First name must be not empty!")
     @JsonProperty("First name")
     private  String firstName;
+
+    @NotBlank(message = "Last name must be not empty!")
     @JsonProperty("Last name")
     private  String lastName;
+
+    @NotBlank(message = "Middle name must be not empty!")
     @JsonProperty("Middle name")
     private  String middleName;
 
+    @NotNull(message = "Gender must be not empty!")
     @JsonProperty("Gender")
     private Gender gender;
 
+    @NotNull(message = "Birthday must be not empty!")
+    @PastOrPresent(message = "Birthday must be a date in the past or in the present!")
     @JsonProperty("Birthday")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)

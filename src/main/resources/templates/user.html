@@ -60,6 +60,11 @@
                 <input type='date' th:field="*{birthday}" />
             </div>
             <button class="btn btn-primary form-control mt-2" th:text="'Submit'">submit</button>
+            <div th:each="message : ${error_message}" th:oblect="${message}">
+                <div class="alert alert-danger mt-3">
+                    <strong th:text="${message}">Failure!</strong>
+                </div>
+            </div>
         </form>
     </div>
 </div>
