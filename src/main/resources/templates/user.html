@@ -14,6 +14,7 @@
             <table class="table table-sm table-bordered table-secondary">
                 <thead>
                 <tr>
+                    <th scope="col" class="border border-secondary">ID</th>
                     <th scope="col" class="border border-secondary">Last name</th>
                     <th scope="col" class="border border-secondary">First name</th>
                     <th scope="col" class="border border-secondary">Middle name</th>
@@ -22,6 +23,7 @@
                 </tr>
                 </thead>
                 <tr th:each="user : ${users}" th:object="${user}">
+                    <td class="border border-secondary" th:text="*{id}"></td>
                     <td class="border border-secondary" th:text="*{lastName}"></td>
                     <td class="border border-secondary" th:text="*{firstName}"></td>
                     <td class="border border-secondary" th:text="*{middleName}"></td>
@@ -30,7 +32,7 @@
                 </tr>
             </table>
         </div>
-        <form class="form-group px-3" th:action="@{user/add}" th:object="${new_user}" th:method="POST">
+        <form class="form-group px-3" th:action="@{user/save_on_disk}" th:object="${new_user}" th:method="POST">
             <div class="input-group mt-2">
                 <div class="input-group-prepend">
                     <span class="input-group-text" th:text="'Last name'">Last name</span>
@@ -59,8 +61,51 @@
                 </div>
                 <input type='date' th:field="*{birthday}" />
             </div>
-            <button class="btn btn-primary form-control mt-2" th:text="'Submit'">submit</button>
+            <button class="btn btn-primary form-control mt-2" th:text="'Save on disk'">Save on disk</button>
             <div th:each="message : ${error_message}" th:oblect="${message}">
+                <div class="alert alert-danger mt-3">
+                    <strong th:text="${message}">Failure!</strong>
+                </div>
+            </div>
+        </form>
+
+        <form class="form-group px-3" th:action="@{user/save_in_db}" th:object="${new_user}" th:method="POST">
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'ID'">ID</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{id}" placeholder="ID"/>
+            </div>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'Last name'">Last name</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{lastName}" placeholder="Last name"/>
+            </div>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'First name'">First name</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{firstName}" placeholder="First name"/>
+            </div>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'Middle name'">Middle name</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{middleName}" placeholder="Middle name"/>
+            </div>
+            <p><b>Gender:</b><Br>
+                <input type="radio" th:field="*{gender}" name="Gender" value="MALE"> Male<Br>
+                <input type="radio" th:field="*{gender}" name="Gender" value="FEMALE"> Female<Br>
+            </p>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'Birthday'">Birthday</span>
+                </div>
+                <input type='date' th:field="*{birthday}" />
+            </div>
+            <button class="btn btn-primary form-control mt-2" th:text="'Save in DB'">Save in DB</button>
+            <div th:each="message : ${error_message_db}" th:oblect="${message}">
                 <div class="alert alert-danger mt-3">
                     <strong th:text="${message}">Failure!</strong>
                 </div>

@@ -3,5 +3,12 @@ spring:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
 
+#datasource:
+#  url: jdbc:postgresql://localhost:5432/TestDB
+#  username: cp_user
+#  password: mypass123
+#  driver-class-name: org.postgresql.Driver
+#  platform: postgres
+
 filepath:
   users: ./users/
