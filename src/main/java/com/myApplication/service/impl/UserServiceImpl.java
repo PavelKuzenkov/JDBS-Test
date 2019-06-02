@@ -1,6 +1,8 @@
 package com.myApplication.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.myApplication.dao.UserDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.myApplication.data.User;
@@ -19,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
     @Value("${filepath.users}")
     private String usersDir;
+
+    @Autowired
+    private UserDAO userDAO;
 
     @Override
     public void toJSON(User user) {
@@ -49,6 +54,7 @@ public class UserServiceImpl implements UserService {
         for (String fileName : getAllFileNames()) {
             result.add(toJavaObject(fileName));
         }
+        result.addAll(userDAO.getAllUsers());
         return result;
     }
 

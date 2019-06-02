@@ -8,6 +8,11 @@
 </head>
 <body>
 <div class="container mt-3">
+    <title>Search</title>
+    <form>
+        <input type="text" name="param" >
+        <input type="submit" value="Find" th:action="@{user?param}">
+    </form>
     <h2 th:text="'Users'" class="h2">User list</h2>
     <div class="row">
         <div class="col">

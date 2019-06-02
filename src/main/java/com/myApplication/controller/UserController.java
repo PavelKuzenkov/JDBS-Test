@@ -32,10 +32,11 @@ public class UserController {
     public String users(Model model, HttpSession session) {
         model.addAttribute("error_message", session.getAttribute("error_message"));
         model.addAttribute("error_message_db", session.getAttribute("error_message_db"));
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("users", session.getAttribute("find_list") != null ? session.getAttribute("find_list") : userService.getAllUsers());
         model.addAttribute("new_user", new User());
         session.setAttribute("error_message", null);
         session.setAttribute("error_message_db", null);
+        session.setAttribute("find_list", null);
         return "user";
     }
 
@@ -67,15 +68,11 @@ public class UserController {
         return "redirect:/user";
     }
 
-//    @PostMapping("/create_table")
-//    public String createTable() {
-//        userDAO.createUsersTable();
-//        return "redirect:/user";
-//    }
-//
-//    @PostMapping("/delete_table")
-//    public String deleteTable() {
-//        userDAO.deleteUsersTable();
-//        return "redirect:/user";
-//    }
+    @GetMapping("{param}")
+    public String find(HttpSession session, @PathVariable("param") String par) {
+        List<User> byParam = userDAO.findByParam(par);
+        session.setAttribute("find_list", byParam);
+        return "redirect:/user";
+    }
+
 }

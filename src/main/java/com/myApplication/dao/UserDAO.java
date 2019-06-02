@@ -14,9 +14,8 @@ public interface UserDAO {
 
     boolean updateUser(User user);
 
-    boolean createUser(User user);
+    void createUser(User user);
 
-//    void createUsersTable();
-//
-//    void deleteUsersTable();
+    List<User> findByParam(String param);
+
 }
