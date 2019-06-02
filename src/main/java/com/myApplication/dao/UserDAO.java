@@ -3,6 +3,7 @@ package com.myApplication.dao;
 import com.myApplication.data.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserDAO {
 
@@ -16,6 +17,11 @@ public interface UserDAO {
 
     void createUser(User user);
 
-    List<User> findByParam(String param);
+    Set<User> findByParam(String param);
 
+    List<User> findByFirstName(String param);
+
+    List<User> findByLastName(String param);
+
+    List<User> findByMiddleName(String param);
 }

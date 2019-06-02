@@ -9,9 +9,9 @@
 <body>
 <div class="container mt-3">
     <title>Search</title>
-    <form>
+    <form th:action="@{user/find}" th:method="GET">
         <input type="text" name="param" >
-        <input type="submit" value="Find" th:action="@{user?param}">
+        <input type="submit" value="Find">
     </form>
     <h2 th:text="'Users'" class="h2">User list</h2>
     <div class="row">

@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 public class User {
@@ -101,5 +102,23 @@ public class User {
 
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(middleName, user.middleName) &&
+                gender == user.gender &&
+                Objects.equals(birthday, user.birthday);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, middleName, gender, birthday);
     }
 }

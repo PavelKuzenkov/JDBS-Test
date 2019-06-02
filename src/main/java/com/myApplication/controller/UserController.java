@@ -14,6 +14,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/user")
@@ -68,10 +69,11 @@ public class UserController {
         return "redirect:/user";
     }
 
-    @GetMapping("{param}")
-    public String find(HttpSession session, @PathVariable("param") String par) {
-        List<User> byParam = userDAO.findByParam(par);
-        session.setAttribute("find_list", byParam);
+    @GetMapping("/find")
+    public String find(HttpSession session, @RequestParam(value = "param", required = false, defaultValue = "") String param) {
+        if (!param.equals("")) {
+            session.setAttribute("find_list", userDAO.findByParam(param));
+        }
         return "redirect:/user";
     }
 
