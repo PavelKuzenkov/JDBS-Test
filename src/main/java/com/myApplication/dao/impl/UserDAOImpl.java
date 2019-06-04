@@ -77,17 +77,17 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> findByFirstName(String param) {
-        return mapping(jdbcTemplate.queryForList(SQL_GET_USER_WITH_FIRSTNAME, param));
+        return mapping(jdbcTemplate.queryForList(SQL_GET_USER_WITH_FIRSTNAME, "%" + param + "%"));
     }
 
     @Override
     public List<User> findByLastName(String param) {
-        return mapping(jdbcTemplate.queryForList(SQL_GET_USER_WITH_LASTNAME, param));
+        return mapping(jdbcTemplate.queryForList(SQL_GET_USER_WITH_LASTNAME, "%" + param + "%"));
     }
 
     @Override
     public List<User> findByMiddleName(String param) {
-        return mapping(jdbcTemplate.queryForList(SQL_GET_USER_WITH_MIDDLENAME, param));
+        return mapping(jdbcTemplate.queryForList(SQL_GET_USER_WITH_MIDDLENAME, "%" + param + "%"));
     }
 
     private List<User> mapping(List<Map<String, Object>> maps) {

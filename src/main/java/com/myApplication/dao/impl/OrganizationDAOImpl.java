@@ -64,7 +64,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
 
     @Override
     public List<Organization> findByName(String param) {
-        return mapping(jdbcTemplate.queryForList(SQL_GET_ORGANIZATION_WITH_NAME, param));
+        return mapping(jdbcTemplate.queryForList(SQL_GET_ORGANIZATION_WITH_NAME, "%" + param + "%"));
     }
 
     private List<Organization> mapping(List<Map<String, Object>> maps) {
