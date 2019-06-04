@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.*;
 
 @Component
@@ -26,11 +25,10 @@ public class UserDAOImpl implements UserDAO {
     private final String SQL_DELETE_USER = "delete from users where id = ?";
     private final String SQL_UPDATE_USER = "update users set first_name = ?, last_name = ?, middle_name = ?, gender = ?, birthday = ? where id = ?";
     private final String SQL_GET_ALL_USERS = "select * from users";
-    private final String SQL_GET_USER_WITH_PARAM = "select * from users where first_name like ?1 or last_name like ?2 or middle_name like ?3 or gender like ?4";
     private final String SQL_GET_USER_WITH_LASTNAME = "select * from users where first_name like ?";
     private final String SQL_GET_USER_WITH_MIDDLENAME = "select * from users where middle_name like ?";
     private final String SQL_GET_USER_WITH_FIRSTNAME = "select * from users where last_name like ?";
-    private final String SQL_INSERT_USER = "insert into users (id, first_name, last_name, middle_name, gender, birthday) values(?, ?, ?, ?, ?, ?)";
+    private final String SQL_INSERT_USER = "insert into users (id, first_name, last_name, middle_name, gender, birthday, organization_id) values(?, ?, ?, ?, ?, ?, ?)";
 
     @Autowired
     public UserDAOImpl(DataSource dataSource) {
@@ -65,7 +63,7 @@ public class UserDAOImpl implements UserDAO {
     public void createUser(User user) {
         jdbcTemplate.update(
                 SQL_INSERT_USER, user.getId(), user.getFirstName(), user.getLastName(),
-                user.getMiddleName(), user.getGender().toString(), user.getBirthday());
+                user.getMiddleName(), user.getGender().toString(), user.getBirthday(), user.getOrganizationId());
     }
 
     @Override

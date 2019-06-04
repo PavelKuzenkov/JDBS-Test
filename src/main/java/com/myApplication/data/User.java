@@ -44,16 +44,19 @@ public class User {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthday;
 
+    private Long organizationId;
+
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String middleName, Gender gender, LocalDate birthday) {
+    public User(Long id, String firstName, String lastName, String middleName, Gender gender, LocalDate birthday, Long organizationId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.gender = gender;
         this.birthday = birthday;
+        this.organizationId = organizationId;
     }
 
     public Long getId() {
@@ -102,6 +105,14 @@ public class User {
 
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    public Long getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
     }
 
     @Override

@@ -109,6 +109,12 @@
                 </div>
                 <input type='date' th:field="*{birthday}" />
             </div>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'ID'">ID</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{organizationId}" placeholder="organizationId"/>
+            </div>
             <button class="btn btn-primary form-control mt-2" th:text="'Save in DB'">Save in DB</button>
             <div th:each="message : ${error_message_db}" th:oblect="${message}">
                 <div class="alert alert-danger mt-3">
