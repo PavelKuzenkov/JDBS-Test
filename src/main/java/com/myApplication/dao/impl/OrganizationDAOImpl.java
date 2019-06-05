@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
     }
 
     @Override
+    @Transactional
     public void createOrganization(Organization organization) {
         jdbcTemplate.update(
                 SQL_INSERT_ORGANIZATION, organization.getId(), organization.getName());
