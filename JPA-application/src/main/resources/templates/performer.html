@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html   xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-3">
+    <li class="nav-item"><a class="nav-link" href="/group" th:text="'Groups'">Groups</a></li>
+    <title>Search</title>
+    <form th:action="@{performer/find}" th:method="GET">
+    <input type="text" name="param" >
+    <input type="submit" value="Find">
+    </form>
+    <h2 th:text="'Performers'" class="h2">Performers</h2>
+    <div class="row">
+        <div class="col">
+            <table class="table table-sm table-bordered table-secondary">
+                <thead>
+                <tr>
+                    <th scope="col" class="border border-secondary">ID</th>
+                    <th scope="col" class="border border-secondary">FirstName</th>
+                    <th scope="col" class="border border-secondary">LastName</th>
+                    <th scope="col" class="border border-secondary">MiddleName</th>
+                    <th scope="col" class="border border-secondary">Gender</th>
+                    <th scope="col" class="border border-secondary">Age</th>
+                    <th scope="col" class="border border-secondary">Role</th>
+                    <th scope="col" class="border border-secondary">Delete</th>
+                </tr>
+                </thead>
+                <tr th:each="performer : ${performers}" th:object="${performer}">
+                    <td class="border border-secondary" th:text="*{id}"></td>
+                    <td class="border border-secondary" th:text="*{firstName}"></td>
+                    <td class="border border-secondary" th:text="*{lastName}"></td>
+                    <td class="border border-secondary" th:text="*{middleName}"></td>
+                    <td class="border border-secondary" th:text="*{gender}"></td>
+                    <td class="border border-secondary" th:text="*{age}"></td>
+                    <td class="border border-secondary" th:text="*{role}"></td>
+                    <td class="border border-secondary">
+                        <form th:action="@{/performer/__*{id}__}" th:method="DELETE">
+                            <button th:text="delete" class="btn btn-danger btn-sm">delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <form class="form-group px-3" th:action="@{performer/save}" th:object="${new_performer}" th:method="POST">
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'FirstName'">FirstName</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{firstName}" placeholder="firstName"/>
+            </div>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'LastName'">LastName</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{lastName}" placeholder="lastName"/>
+            </div>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'MiddleName'">MiddleName</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{middleName}" placeholder="middleName"/>
+            </div>
+            <p><b>Gender:</b><Br>
+                <input type="radio" th:field="*{gender}" name="Gender" value="MALE"> Male<Br>
+                <input type="radio" th:field="*{gender}" name="Gender" value="FEMALE"> Female<Br>
+            </p>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'Age'">Age</span>
+                </div>
+                <input class="input-group-append form-control latitude" type="number" step="1" min="1" th:field="*{age}" placeholder="Age"/>
+            </div>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'Role'">Role</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{role}" placeholder="role"/>
+            </div>
+            <button class="btn btn-primary form-control mt-2" th:text="'Save'">Save</button>
+            <div th:each="message : ${error_message}" th:oblect="${message}">
+                <div class="alert alert-danger mt-3">
+                    <strong th:text="${message}">Failure!</strong>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

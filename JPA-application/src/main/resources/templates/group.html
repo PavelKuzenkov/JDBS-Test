@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html   xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-3">
+    <title>Search</title>
+    <form th:action="@{group/find}" th:method="GET">
+        <input type="text" name="param" >
+        <input type="submit" value="Find">
+    </form>
+    <h2 th:text="'Groups'" class="h2">Groups</h2>
+    <div class="row">
+        <div class="col">
+            <table class="table table-sm table-bordered table-secondary">
+                <thead>
+                <tr>
+                    <th scope="col" class="border border-secondary">ID</th>
+                    <th scope="col" class="border border-secondary">Name</th>
+                    <th scope="col" class="border border-secondary">Country</th>
+                    <th scope="col" class="border border-secondary">Genre</th>
+                    <th scope="col" class="border border-secondary">Delete</th>
+                    <th scope="col" class="border border-secondary">Albums</th>
+                    <th scope="col" class="border border-secondary">Performers</th>
+                </tr>
+                </thead>
+                <tr th:each="group : ${groups}" th:object="${group}">
+                    <td class="border border-secondary" th:text="*{id}"></td>
+                    <td class="border border-secondary" th:text="*{name}"></td>
+                    <td class="border border-secondary" th:text="*{country}"></td>
+                    <td class="border border-secondary" th:text="*{genre}"></td>
+                    <td class="border border-secondary">
+                        <form th:action="@{/group/__*{id}__}" th:method="DELETE">
+                            <button th:text="delete" class="btn btn-danger btn-sm">delete</button>
+                        </form>
+                    </td>
+                    <td class="border border-secondary">
+                        <form th:action="@{/group/group_albums/__*{id}__}" th:method="GET">
+                            <button th:text="albums" >albums</button>
+                        </form>
+                    </td>
+                    <td class="border border-secondary">
+                        <form th:action="@{/group/group_performers/__*{id}__}" th:method="GET">
+                            <button th:text="performers" >performers</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <form class="form-group px-3" th:action="@{group/save}" th:object="${new_group}" th:method="POST">
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'Name'">Name</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{name}" placeholder="Name"/>
+            </div>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'Country'">Country</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{country}" placeholder="Country"/>
+            </div>
+            <div class="input-group mt-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" th:text="'Genre'">Genre</span>
+                </div>
+                <input class="input-group-append form-control" type="text" th:field="*{genre}" placeholder="Genre"/>
+            </div>
+            <button class="btn btn-primary form-control mt-2" th:text="'Save'">Save</button>
+            <div th:each="message : ${error_message}" th:oblect="${message}">
+                <div class="alert alert-danger mt-3">
+                    <strong th:text="${message}">Failure!</strong>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
