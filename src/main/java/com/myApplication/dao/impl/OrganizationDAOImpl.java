@@ -4,6 +4,7 @@ import com.myApplication.dao.OrganizationDAO;
 import com.myApplication.data.Organization;
 import com.myApplication.service.OrganizationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
@@ -37,7 +38,13 @@ public class OrganizationDAOImpl implements OrganizationDAO {
 
     @Override
     public Organization getOrganizationById(Long id) {
-        return jdbcTemplate.queryForObject(SQL_FIND_ORGANIZATION, new Object[] { id }, new OrganizationMapper());
+        Organization result = null;
+        try{
+            result = jdbcTemplate.queryForObject(SQL_FIND_ORGANIZATION, new Object[] { id }, new OrganizationMapper());
+        } catch (EmptyResultDataAccessException epdae) {
+
+        }
+        return result;
 
     }
 

@@ -5,6 +5,7 @@ import com.myApplication.dao.UserDAO;
 import com.myApplication.data.User;
 import com.myApplication.service.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Component;
@@ -37,7 +38,13 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getUserById(Long id) {
-        return jdbcTemplate.queryForObject(SQL_FIND_USER, new Object[] { id }, new UserMapper());
+        User result = null;
+        try{
+            result = jdbcTemplate.queryForObject(SQL_FIND_USER, new Object[] { id }, new UserMapper());
+        } catch (EmptyResultDataAccessException epdae) {
+
+        }
+        return result;
     }
 
     @Override

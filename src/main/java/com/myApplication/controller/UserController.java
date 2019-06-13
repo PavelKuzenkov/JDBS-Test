@@ -1,5 +1,6 @@
 package com.myApplication.controller;
 
+import com.myApplication.dao.OrganizationDAO;
 import com.myApplication.dao.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,9 @@ public class UserController {
     private UserDAO userDAO;
 
     @Autowired
+    private OrganizationDAO organizationDAO;
+
+    @Autowired
     private UserService userService;
 
 
@@ -45,7 +49,9 @@ public class UserController {
     public String saveOnDisk(@ModelAttribute("user") User user, HttpSession session) {
         List<String> errors = new ArrayList<>();
         for (ConstraintViolation<User> constraintViolation : validator.validate(user)) {
-            errors.add(constraintViolation.getMessage());
+            if (!constraintViolation.getMessage().equals("Id must be not empty!") && !constraintViolation.getMessage().equals("OrganizationId must be not empty!")) {
+                errors.add(constraintViolation.getMessage());
+            }
         }
         if (errors.isEmpty()) {
             userService.toJSON(user);
@@ -60,6 +66,12 @@ public class UserController {
         List<String> errors = new ArrayList<>();
         for (ConstraintViolation<User> constraintViolation : validator.validate(user)) {
             errors.add(constraintViolation.getMessage());
+        }
+        if (user.getId() != null && userDAO.getUserById(user.getId()) != null) {
+            errors.add("User with the same ID already exists!");
+        }
+        if (user.getOrganizationId() != null && organizationDAO.getOrganizationById(user.getOrganizationId()) == null) {
+            errors.add("Organization with the same ID does not exist!");
         }
         if (errors.isEmpty()) {
             userDAO.createUser(user);

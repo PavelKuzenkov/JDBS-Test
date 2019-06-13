@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class User {
 
-
+    @NotNull(message = "Id must be not empty!")
     private Long id;
 
     @NotBlank(message = "First name must be not empty!")
@@ -44,6 +44,7 @@ public class User {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthday;
 
+    @NotNull(message = "OrganizationId must be not empty!")
     private Long organizationId;
 
     public User() {

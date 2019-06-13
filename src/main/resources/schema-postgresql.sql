@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS organization;
 
 CREATE TABLE organization (
     id serial PRIMARY KEY NOT NULL,
-    name varchar(100) NOT NULL,
+    name varchar(100) NOT NULL
 );
 
 DROP TABLE IF EXISTS users;
