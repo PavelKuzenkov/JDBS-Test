@@ -20,3 +20,6 @@ CREATE TABLE users (
     birthday date not null,
     organization_id serial REFERENCES organization
 );
+
+Страницы: http://localhost:8080/organization
+          http://localhost:8080/user
