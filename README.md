@@ -1,4 +1,4 @@
-# Test-task
+# JDBC
 
 Перед запуском необходимо создать БД localhost:5432/TestDB
 логин cp_user
